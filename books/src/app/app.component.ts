@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { Book } from './models/book';
 
@@ -11,8 +12,10 @@ export class AppComponent {
   title = 'Angular';
   book = new Book();
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event, form: NgForm) {
     event.preventDefault();
-    console.log('submitting form', this.book);
+    console.log('submitting form', form.value);
+
+    form.reset();
   }
 }

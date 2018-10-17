@@ -5,14 +5,14 @@
 
   {{ form.value | json }}
 
-  <form (submit)='onSubmit($event)' #form='ngForm'>
+  <form (submit)='onSubmit($event, form)' #form='ngForm'>
     <div>
       <label for="">title</label>
-      <input type="text" name='title' [(ngModel)]='book.title'>
+      <input type="text" name='title' [ngModel]='book.title' required>
     </div>
     <div>
       <label for="">author</label>
-      <input type="text" name='author' [(ngModel)]='book.author'>
+      <input type="text" name='author' [(ngModel)]='book.author' required>
     </div>
     <div>
       <label for="">year</label>
@@ -27,6 +27,6 @@
       <input type="text" name='publisher' [(ngModel)]='book.publisher'>
     </div>
 
-    <button>Submit</button>
+    <button *ngIf='form.valid'>Submit</button>
   </form>
 </fieldset>

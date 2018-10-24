@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BOOKS } from '../../data/book-data';
 import { Book } from '../../models/book';
+
+import { BookService } from '../../services';
 
 @Component({
   selector: 'app-book-list',
@@ -9,12 +10,19 @@ import { Book } from '../../models/book';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent implements OnInit {
-  books: Book[] = BOOKS;
+  books: Book[] = [];
   selectedBook: Book;
 
-  constructor() {}
+  constructor(private readonly bookService: BookService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.bookService);
+
+    this.bookService.getBooks().subscribe(books => {
+      console.log('books from observable', books);
+      this.books = books;
+    });
+  }
 
   onSelect(book: Book): void {
     console.log('selecting ', book);
@@ -31,6 +39,27 @@ export class BookListComponent implements OnInit {
   onCreate(book: Book): void {
     console.log('creatnig book', book);
 
-    this.books.push(book);
+    this.bookService.createBook(book).subscribe(createdBook => {
+      console.log('created book', createdBook);
+      // this.books.push(createdBook);
+
+      this.books = [...this.books, createdBook];
+    });
+
+    // this.books.push(book);
+  }
+
+  onDelete(id: number) {
+    console.log('deleting book');
+
+    this.bookService.deleteBook(id).subscribe(deletedBook => {
+      this.books = this.books.filter(book => book.id !== deletedBook.id);
+    });
+  }
+
+  onEvent(event: Event) {
+    console.log('eventing....');
+
+    event.stopPropagation();
   }
 }

@@ -9,7 +9,8 @@ import { Book } from '../models/book';
   providedIn: 'root',
 })
 export class BookService {
-  private readonly base = 'http://59498bce6d49df0011102cfc.mockapi.io/books';
+  // private readonly base = 'http://59498bce6d49df0011102cfc.mockapi.io/books';
+  private readonly base = '/api/books';
 
   constructor(private readonly http: HttpClient) {}
 

@@ -53,7 +53,7 @@ export class BookListComponent implements OnInit {
     console.log('deleting book');
 
     this.bookService.deleteBook(id).subscribe(deletedBook => {
-      this.books = this.books.filter(book => book.id !== deletedBook.id);
+      this.books = this.books.filter(book => book._id !== deletedBook._id);
     });
   }
 

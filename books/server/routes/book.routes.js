@@ -1,7 +1,7 @@
 const bookController = require('../controllers/book.controller');
 const router = require('express').Router();
 
-//     /resource/:id  /books/:id
+//     /resource/:id  /api/books/:id
 
 module.exports = router
   .get('/', bookController.index)
